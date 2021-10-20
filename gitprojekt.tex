@@ -1,0 +1,145 @@
+\documentclass[a4paper,11pt,bibliography=totoc, listof=totoc,titlepage]{scrartcl}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\renewcommand{\arraystretch}{1.5}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[usenames,dvipsnames,table,xcdraw]{xcolor}
+\usepackage[toc,page]{appendix}
+%\usepackage[scaled]{berasans}
+%\renewcommand*\familydefault{\sfdefault}  %% Only if the base font of the document is to be sans serif
+%\usepackage[T1]{fontenc}
+
+  
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{todonotes}
+\usepackage{amsmath}
+
+\usepackage{multirow}
+
+\newcommand*\justify{%
+  \fontdimen2\font=0.4em% interword space
+  \fontdimen3\font=0.2em% interword stretch
+  \fontdimen4\font=0.1em% interword shrink
+  \fontdimen7\font=0.1em% extra space
+  \hyphenchar\font=`\-% allowing hyphenation
+}
+
+\newcommand{\code}[1]{\texttt{\justify{#1}}}
+%\usepackage{tocloft}
+
+%Boxfehler
+\hbadness=1000000
+
+% Listings
+\usepackage{listings}
+\lstset{
+   breaklines=true,
+   captionpos=t,
+   basicstyle=\scriptsize\ttfamily,
+   keywordstyle=\bfseries\ttfamily\color{orange},
+   stringstyle=\color{green}\ttfamily,
+   commentstyle=\color{gray}\ttfamily,
+   emph={square}, 
+   emphstyle=\color{blue}\texttt,
+   emph={[2]root,base},
+   emphstyle={[2]\color{yac}\texttt},
+   showstringspaces=false,
+   flexiblecolumns=false,
+   tabsize=2,
+   numbers=left,
+   numberstyle=\tiny,
+   numberblanklines=false,
+   stepnumber=1,
+   numbersep=10pt,
+   xleftmargin=15pt
+ }
+
+% Zitierstil
+%\usepackage[style=authoryear,citestyle=authoryear,natbib=true]{biblatex}
+%\bibliography{Thesis.bib}
+\usepackage[round]{natbib}
+\bibliographystyle{hcu}
+
+\begin{document}
+\pagenumbering{Roman}
+\begin{titlepage}
+\begin{center}
+\renewcommand{\arraystretch}{0.7}
+\begin{tabular}{lr}
+\begin{tabular}{l}
+\includegraphics[width=0.35\textwidth]{img/hculogo_grau.png}
+\end{tabular} \hspace{1.8cm} &
+\begin{tabular}{r}
+Universität für \\Baukunst und Metropolenentwicklung\\
+Henning-Voscherau-Platz 1\\
+20457 Hamburg\\
+\end{tabular}
+\end{tabular}\\\vspace{5cm}
+\doublespacing 
+{\huge\bfseries Bearbeitungsbericht}\vspace{0.5cm}\\
+
+{\large\bfseries GIT-Projekt WiSe 2021/22}\vspace{2cm}\\
+{\large Gruppe 2}\\
+{\large Markus Hamann, Florian Timm}\\
+
+\vspace{7cm}
+Donnerstag, den 31. März 2022\\
+\end{center}
+\setcounter{page}{0} 
+\end{titlepage}
+
+
+% Mehrere gleichzeitig zitieren
+\providecommand{\citeTwo}[4]{\citep[{\citealp[#1]{#2};}][#3]{#4}} 
+\providecommand{\citeThree}[6]{\citep[{\citealp[#1]{#2}; \citealp[#3]{#4};}][#5]{#6}} 
+\providecommand{\citeFour}[8]{\citep[{\citealp[#1]{#2}; \citealp[#3]{#4}; \citealp[#5]{#6};}][#7]{#8}}
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1} 
+
+\section{Einleitung}
+
+
+\section{Datenquellen}
+\subsection{Netzdaten}
+Für die gewünschten Erreichbarkeitsanalysen wird ein routingfähiges Netz benötigt, dass mindestens die möglichen Routenbeziehungen des Fußgängerverkehres abbildet.Für detailierte Analysen wären auch Daten zum Radverkehrsnetz oder zu Fahrplandaten interessant.
+
+
+\paragraph{OpenStreetMap (OSM)} OpenStreetMap (\url{http://openstreetmap.org}) bietet kostenfreie Netzdaten an. Diese Daten wurden von Freiwilligen erfasst. Die Daten von OSM bieten sich hierfür an, da sie bereits im Hinblick auf die Routingfähigkeit erfasst wurden. In Ballungsräumen wie Hamburg sind die Daten sehr vollständig und aktuell. Die Geofabrik bietet bereits auf Hamburg zugeschnittene Daten an. Die Daten sind bereits an Haltestellen angebunden.
+
+\paragraph{ATKIS} Die Daten aus dem amtlichen topografischen Informationssystemes sind in Hamburg kostenfrei vom Landesbetrieb Geoinformation und Vermessung (LGV) zur Verfügung gestellt. Diese Daten ermöglichen es auch ein Routingnetz zu erzeugen, wie es beispielsweise beim Schulwegrouting (\url{https://geoportal-hamburg.de/schulinfosystem/?isinitopen=schulwegrouting}) durchgeführt wurde. Diese Daten werden aber nicht als Rohdaten zur Verfügung gestellt und haben auch leider einige Lücken und sind zum Beispiel im Bereich von Haltestellen nicht so detailiert wie die Daten von OSM. Die Aufbereitung der Daten ist aber bekannt, so dass dieses Netz notfalls als Alternative zu den OSM-Daten verwendet werden könnten.
+
+\paragraph{Straßen- und Wegedatenbank} Der LGV führt eine Datenbank aller gewidmeten Wege. Diese Daten sind grundsätzlich routingfähig, jedoch nur für den KFZ-Verkehr auch wenn hier auch Fußwege enthalten sind. Diese sind jedoch nicht am Netz angebunden. Wege in Grünanlagen sind in Hamburg nicht als Straßenflächen gewidmet und meistens auch nicht benannt. Diese sind daher nicht im Netz enthalten. \citep{hhsib}
+
+\paragraph{Digitales Radwege-Netz} Der LGV ist aktuell dabei, ein Radwegenetz, welches direkt routingfähig ist, zu erfassen. Diese Daten sind jedoch noch nicht vollständig erfasst und auch nur auf das Routing von Fahrrädern ausgelegt.  \citep{radwegenetz}
+
+Diese Daten könnten ggf. genutzt werden, falls auch eine Erreichbarkeitsanalyse für Fahr\-räder durchgeführt werden soll.
+\\
+\\
+Der Vergleich zeigt, dass bisher die Daten aus dem OSM-Projekt am vielversprechendsten sind. Diese Daten werden daher zuerst aufbereitet.
+
+\subsection{HVV-Haltestellen}
+Die Haltestellen sind in mehreren Datensätzen vom LGV, vom Hamburger Verkehrsverbund (HVV) und OSM enthalten. Da die OSM-Netzdaten bereits eine Verbindung zu den Haltestellen haben, werden hier erstmal die Daten aus dem OSM-Projekt bevorzugt. Gegebenenfalls könnte man diese Daten noch mit Fahrplandaten des HVV ergänzen, um auch die Fahrthäufigkeiten mit zu berücksichtigen in der Erreichbarkeitsanalyse.
+
+\subsection{Luftstationen}
+Die Daten der bisher vorhandenen Luftstationen werden nur vom LGV bereitgestellt. In den OSM-Daten sind diese nicht enthalten.
+
+\clearpage
+%% Literatur
+\renewcommand\UrlFont\itshape
+\bibliography{gitprojekt}
+%\printbibliography
+\listoffigures
+%\listoftables
+%\lstlistoflistings
+
+\end{document}
